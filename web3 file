@@ -1,0 +1,29 @@
+const Web3 = require('web3');
+
+const web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/YOUR_PROJECT_ID'));
+
+const contractAddress = '0x...'; // Replace with your contract address
+const contractABI = [...]; // Replace with your contract ABI
+
+const bookingContract = new web3.eth.Contract(contractABI, contractAddress);
+
+async function bookAppointment(name, email, date) {
+    try {
+        await bookingContract.methods.bookAppointment(name, email, date).send({ from: '0x...' }); // Replace with your Ethereum account address
+        console.log('Appointment booked successfully!');
+    } catch (error) {
+        console.error('Error booking appointment:', error);
+    }
+}
+
+async function getBookings() {
+    try {
+        const bookings = await bookingContract.methods.getBookings().call();
+        console.log('Bookings:', bookings);
+        return bookings;
+    } catch (error) {
+        console.error('Error getting bookings:', error);
+    }
+}
+
+export { bookAppointment, getBookings };

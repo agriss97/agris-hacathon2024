@@ -1,0 +1,24 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.0;
+
+contract BookingContract {
+    struct Booking {
+        string name;
+        string email;
+        string date;
+    }
+
+    Booking[] public bookings;
+
+    function bookAppointment(string memory _name, string memory _email, string memory _date) public {
+        Booking memory newBooking;
+        newBooking.name = _name;
+        newBooking.email = _email;
+        newBooking.date = _date;
+        bookings.push(newBooking);
+    }
+
+    function getBookings() public view returns (Booking[] memory) {
+        return bookings;
+    }
+}
